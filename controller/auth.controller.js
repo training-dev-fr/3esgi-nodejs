@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const userModel = require("./../model/user.model");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 exports.signin = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
@@ -32,7 +33,7 @@ exports.login = (req, res, next) => {
                         email: user.email,
                         jwt: jwt.sign({
                             email: user.email
-                        }, "d8a2123b708e4b2116b3b8f4b18ed499")
+                        }, process.env.JWT_TOKEN)
                     });
                 } else {
                     res.status(401).json({ message: "Mot de passe incorrect" });
