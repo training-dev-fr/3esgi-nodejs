@@ -1,0 +1,10 @@
+[
+    {
+        "email": "test@yopmail.com",
+        "password": "$2b$10$jpw6Kevj01CKNPyuseOnleofmSRbgIUAub.PGV4FYEEH6i137fvEO"
+    },
+    {
+        "email": "test2@yopmail.com",
+        "password": "$2b$10$qxb9xETYIbBv4uatWpjNx.kLf7GMWEdrz0lX4jWz2H54Aun9NSMym"
+    }
+]
