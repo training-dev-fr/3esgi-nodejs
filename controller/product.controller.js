@@ -1,17 +1,17 @@
-const productModel = require("./../model/product.model");
+const Product = require("./../model/product.model");
 const fs = require("fs");
 
-exports.getAll = (req, res, next) => {
-    let productList = productModel.getAll();
+exports.getAll = async (req, res, next) => {
+    let productList = await Product.find()
     res.status(200).json(productList);
 }
 
 exports.create = (req, res, next) => {
     const product = JSON.parse(req.body.product);
-    productModel.create({
+    Product.create({
         ...product,
         image: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
-        user: req.token.email
+        userid: req.token.id
     });
     res.status(201).json({ message: "Produit créé" });
 }
