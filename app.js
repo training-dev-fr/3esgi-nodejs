@@ -4,6 +4,10 @@ const userRoute = require("./route/user.route");
 const authRoute = require("./route/auth.route");
 const productRoute = require("./route/product.route");
 
+const {connect} = require("./model/connection");
+
+connect();
+
 const app = express();
 
 app.use(express.json());

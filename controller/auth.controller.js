@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const userModel = require("./../model/user.model");
+const User = require("../model/user.model");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -7,11 +7,16 @@ exports.signin = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
             try {
-                userModel.create({
+                User.create({
                     email: req.body.email,
+                    firstname: req.body.firstname,
                     password: hash
-                });
-                res.status(201).json({ message: "Utilisateur créé" });
+                }).then(user => {
+                    res.status(201).json({ message: "Utilisateur créé" });
+                }).catch(error => {
+                    res.status(500).json({ message: error });
+                })
+                
             } catch (error) {
                 res.status(500).json(error);
             }
@@ -23,9 +28,9 @@ exports.signin = (req, res, next) => {
 
 }
 
-exports.login = (req, res, next) => {
+exports.login = async (req, res, next) => {
     try {
-        let user = userModel.getOne(req.body.email);
+        let user = await User.findOne({email: req.body.email})
         bcrypt.compare(req.body.password, user.password)
             .then(success => {
                 if (success) {

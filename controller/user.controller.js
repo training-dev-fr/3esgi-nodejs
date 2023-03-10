@@ -1,6 +1,11 @@
-const userModel = require("./../model/user.model");
+const User = require("../model/user.model");
 
 exports.getAll = (req, res, next) => {
-    let userList = userModel.getAll();
-    res.status(200).json(userList);
+    User.find()
+    .then(userList => {
+        res.status(200).json(userList);
+    })
+    .catch(error => {
+        res.status(500).json(error);
+    })
 }
